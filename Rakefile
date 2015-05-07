@@ -13,7 +13,7 @@ task :sync_swagger_ui do
 
   File.read(idx).each_line do | line |
     if line =~ /require (.*)/
-      file = "#{source}/#{$1.strip}"
+      file = File.join source, $1.strip
       # hack to make throbber.gif available on asset pipeline
       if $1.strip =~ /swagger-ui\.js/
         contents = File.read file
