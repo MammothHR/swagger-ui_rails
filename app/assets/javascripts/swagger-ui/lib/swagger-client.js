@@ -1154,11 +1154,18 @@ Operation.prototype.getMissingParams = function(args) {
 Operation.prototype.getBody = function(headers, args, opts) {
   var formParams = {}, body, key;
 
+
   for(var i = 0; i < this.parameters.length; i++) {
     var param = this.parameters[i];
     if(typeof args[param.name] !== 'undefined') {
       if (param.in === 'body') {
-        body = args[param.name];
+        if(typeof body !== 'undefined') {
+          let json = JSON.parse(body);
+          json[param.name] = args[param.name];
+          body = JSON.stringify(json);
+        } else {
+          body = args[param.name];
+        }
       } else if(param.in === 'formData') {
         formParams[param.name] = args[param.name];
       }
