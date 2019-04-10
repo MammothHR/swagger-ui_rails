@@ -1160,7 +1160,7 @@ Operation.prototype.getBody = function(headers, args, opts) {
     if(typeof args[param.name] !== 'undefined') {
       if (param.in === 'body') {
         if(typeof body !== 'undefined') {
-          let json = JSON.parse(body);
+          var json = JSON.parse(body);
           json[param.name] = args[param.name];
           body = JSON.stringify(json);
         } else {
